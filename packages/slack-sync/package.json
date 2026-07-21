@@ -1,0 +1,33 @@
+{
+  "name": "@connect-any-inbox/slack-sync",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@connect-any-inbox/audit-log": "workspace:*",
+    "@connect-any-inbox/inbox-core": "workspace:*"
+  },
+  "license": "MIT",
+  "author": "ConnectOS contributors",
+  "description": "ConnectOS Slack sync helpers for message stream workflows.",
+  "keywords": [
+    "connectos",
+    "ai",
+    "ai-agents",
+    "integrations",
+    "slack",
+    "sync",
+    "messages"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/connectos-ai/connectos.git"
+  },
+  "homepage": "https://github.com/connectos-ai/connectos#readme",
+  "bugs": {
+    "url": "https://github.com/connectos-ai/connectos/issues"
+  }
+}

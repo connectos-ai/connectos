@@ -1,0 +1,27 @@
+{
+  "name": "@connect-any-inbox/audit-log",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "license": "MIT",
+  "author": "ConnectOS contributors",
+  "description": "ConnectOS audit logging primitives for connection lifecycle events.",
+  "keywords": [
+    "connectos",
+    "ai",
+    "ai-agents",
+    "integrations",
+    "audit"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/connectos-ai/connectos.git"
+  },
+  "homepage": "https://github.com/connectos-ai/connectos#readme",
+  "bugs": {
+    "url": "https://github.com/connectos-ai/connectos/issues"
+  }
+}

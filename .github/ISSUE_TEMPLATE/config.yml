@@ -1,0 +1,31 @@
+blank_issues_enabled: false
+
+# ConnectOS v1.0 issue intake is intentionally narrow before public release.
+# Contributors should be guided into one of the available templates so security,
+# compatibility, and release-scope checks are visible from the start.
+
+# Keep v1.0 public issue intake focused and contributor-friendly.
+# Guardrail phrase: Keep v1.0 public issue intake focused contributor-friendly.
+# Release-check anchor: Keep v1.0 public issue intake focused contributor-friendly.
+
+# Use "Bug report" for reproducible problems in existing ConnectOS behavior.
+# Release-check anchor: Use "Bug report" reproducible problems in existing ConnectOS behavior.
+
+# Use "Release preparation task" for documentation cleanup, naming consistency,
+# contributor experience, security docs, tests, GitHub metadata, release docs,
+# or demo polish that does not add new platform capability.
+
+# Do not use public issues for security vulnerabilities or sensitive material.
+# Release-check anchor: Do not use public issues security vulnerabilities sensitive material.
+# Sensitive material includes OAuth tokens, refresh tokens, OAuth authorization
+# codes, API keys, client secrets, encryption keys, token references, raw
+# callback payloads, raw provider responses, screenshots containing secrets,
+# logs containing secrets, credentials, or exploitable vulnerability details.
+
+# Keep security reports private until the project owner chooses a reporting path.
+# Guardrail phrase: Keep security reports private until project owner chooses reporting path.
+
+# Do not guess owner-controlled values during v1.0 release preparation.
+# Do not add placeholder repository URLs, security contacts, maintainer handles,
+# or release dates during public issue intake for v1.0 release preparation.
+# Release-check anchor: Do not add placeholder repository URLs, security contacts, maintainer handles, or release dates during public issue intake for v1.0 release preparation.

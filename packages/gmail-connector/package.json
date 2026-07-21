@@ -1,0 +1,33 @@
+{
+  "name": "@connect-any-inbox/gmail-connector",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@connect-any-inbox/inbox-core": "workspace:*",
+    "@connect-any-inbox/vault": "workspace:*"
+  },
+  "license": "MIT",
+  "author": "ConnectOS contributors",
+  "description": "ConnectOS Gmail connector primitives for OAuth-backed email integration.",
+  "keywords": [
+    "connectos",
+    "ai",
+    "ai-agents",
+    "integrations",
+    "gmail",
+    "oauth",
+    "email"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/connectos-ai/connectos.git"
+  },
+  "homepage": "https://github.com/connectos-ai/connectos#readme",
+  "bugs": {
+    "url": "https://github.com/connectos-ai/connectos/issues"
+  }
+}

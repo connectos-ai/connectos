@@ -1,0 +1,14 @@
+id: example-calendar
+name: Example Calendar
+category: calendar
+toolkitSlug: examplecalendar
+authMethod: oauth
+providerOptions:
+  - mock
+  - composio
+scopes:
+  - calendar.events.read
+actions:
+  - id: list-events
+    name: List events
+    description: Reads upcoming calendar events for a connected account.

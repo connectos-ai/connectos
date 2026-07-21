@@ -1,0 +1,58 @@
+{
+  "name": "connect-any-inbox",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@10.14.0",
+  "engines": {
+    "node": ">=24",
+    "pnpm": ">=10.14.0"
+  },
+  "scripts": {
+    "dev": "pnpm --filter @connect-any-inbox/web dev",
+    "dev:local": "pnpm dev",
+    "build": "pnpm --filter @connect-any-inbox/web build",
+    "connect-core:seed": "pnpm --filter @connect-any-inbox/web connect-core:seed",
+    "lint": "eslint . --max-warnings=0",
+    "prisma:validate": "DATABASE_URL='postgresql://postgres:postgres@localhost:5432/connect_any_inbox' pnpm --filter @connect-any-inbox/web exec prisma validate --schema prisma/schema.prisma",
+    "release-docs:check": "node scripts/check-release-docs.mjs",
+    "release-hygiene:check": "node scripts/check-release-hygiene.mjs",
+    "release-metadata:check": "node scripts/check-package-metadata.mjs",
+    "release:check": "pnpm release-docs:check && pnpm release-metadata:check && pnpm release-hygiene:check && pnpm test && pnpm lint && pnpm typecheck && pnpm prisma:validate && pnpm build",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.29.0",
+    "@next/eslint-plugin-next": "15.5.19",
+    "@types/node": "^24.0.3",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "eslint": "^9.29.0",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.34.1",
+    "vitest": "^3.2.4"
+  },
+  "license": "MIT",
+  "author": "ConnectOS contributors",
+  "description": "ConnectOS monorepo for neutral AI integration infrastructure.",
+  "keywords": [
+    "connectos",
+    "ai",
+    "ai-agents",
+    "integrations",
+    "oauth",
+    "automation",
+    "providers",
+    "capabilities",
+    "actions",
+    "skills"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/connectos-ai/connectos.git"
+  },
+  "homepage": "https://github.com/connectos-ai/connectos#readme",
+  "bugs": {
+    "url": "https://github.com/connectos-ai/connectos/issues"
+  }
+}

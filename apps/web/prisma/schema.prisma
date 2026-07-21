@@ -1,0 +1,282 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Provider {
+  gmail
+  twilio
+  slack
+  hubspot
+  meta_business
+}
+
+enum ConnectorStrategy {
+  oauth
+  webhook
+  api_key
+  provider
+  automation
+  manual
+}
+
+enum ConnectionStatus {
+  not_connected
+  pending
+  connected
+  needs_attention
+  disabled
+}
+
+enum SetupState {
+  not_started
+  waiting_for_user
+  waiting_for_provider
+  ready
+  failed
+}
+
+enum MessageSource {
+  gmail
+  twilio
+  hubspot
+  meta_business
+}
+
+enum MessageDirection {
+  inbound
+  outbound
+}
+
+enum SyncDestination {
+  slack
+}
+
+enum SyncRuleStatus {
+  active
+  paused
+  needs_attention
+}
+
+enum ConnectCoreProvider {
+  mock
+  composio
+  direct_oauth
+}
+
+enum ConnectCoreConnectionStatus {
+  available
+  pending
+  connected
+  unhealthy
+  expired
+  disconnected
+}
+
+enum ConnectCoreHealthStatus {
+  healthy
+  needs_attention
+  broken
+}
+
+enum ConnectCoreEventType {
+  connect_started
+  connect_completed
+  reconnect_started
+  disconnect_completed
+  health_checked
+}
+
+model User {
+  id                     String                  @id @default(cuid())
+  email                  String                  @unique
+  name                   String?
+  connections            Connection[]
+  connectCoreConnections ConnectCoreConnection[]
+  messages               InboxMessage[]
+  providerEvents         ProviderEvent[]
+  labels                 Label[]
+  syncRules              SyncRule[]
+  createdAt              DateTime                @default(now())
+  updatedAt              DateTime                @updatedAt
+}
+
+model Connection {
+  id             String          @id @default(cuid())
+  userId         String
+  provider       Provider
+  strategy       ConnectorStrategy
+  status         ConnectionStatus
+  setupState     SetupState
+  messages       InboxMessage[]
+  providerEvents ProviderEvent[]
+  user           User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+
+  @@index([userId, provider])
+}
+
+model InboxMessage {
+  id             String           @id @default(cuid())
+  userId         String
+  connectionId   String
+  source         MessageSource
+  direction      MessageDirection
+  sender         String
+  recipients     String[]
+  subject        String?
+  preview        String
+  receivedAt     DateTime
+  sourceMetadata Json
+  connection     Connection       @relation(fields: [connectionId], references: [id], onDelete: Cascade)
+  user           User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  labels         MessageLabel[]
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+
+  @@index([userId, receivedAt])
+  @@index([connectionId, receivedAt])
+}
+
+model ProviderEvent {
+  id           String      @id @default(cuid())
+  userId       String
+  connectionId String
+  provider     Provider
+  eventType    String
+  payload      Json
+  receivedAt   DateTime
+  processedAt  DateTime?
+  connection   Connection  @relation(fields: [connectionId], references: [id], onDelete: Cascade)
+  user         User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+
+  @@index([connectionId, receivedAt])
+}
+
+model Label {
+  id        String         @id @default(cuid())
+  userId    String
+  name      String
+  color     String
+  messages  MessageLabel[]
+  syncRules SyncRule[]
+  user      User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime       @default(now())
+
+  @@unique([userId, name])
+}
+
+model MessageLabel {
+  messageId String
+  labelId   String
+  appliedAt DateTime     @default(now())
+  label     Label        @relation(fields: [labelId], references: [id], onDelete: Cascade)
+  message   InboxMessage @relation(fields: [messageId], references: [id], onDelete: Cascade)
+
+  @@id([messageId, labelId])
+}
+
+model SyncRule {
+  id                   String         @id @default(cuid())
+  userId               String
+  labelId              String
+  destination          SyncDestination
+  destinationChannelId String
+  status               SyncRuleStatus
+  label                Label          @relation(fields: [labelId], references: [id], onDelete: Cascade)
+  user                 User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt            DateTime       @default(now())
+  updatedAt            DateTime       @updatedAt
+
+  @@index([userId, destination])
+}
+
+model ConnectCoreIntegration {
+  id              String                  @id
+  name            String
+  category        String
+  toolkitSlug     String
+  authMethod      String
+  defaultProvider ConnectCoreProvider
+  description     String
+  recommendedFor  String[]
+  scopes          String[]
+  isMvp           Boolean                 @default(false)
+  connections     ConnectCoreConnection[]
+  createdAt       DateTime                @default(now())
+  updatedAt       DateTime                @updatedAt
+
+  @@index([category])
+  @@index([toolkitSlug])
+}
+
+model ConnectCoreConnection {
+  id                String                        @id @default(cuid())
+  userId            String
+  integrationId     String
+  provider          ConnectCoreProvider
+  status            ConnectCoreConnectionStatus
+  permissions       String[]
+  metadata          Json                        @default("{}")
+  redirectUrl       String?
+  externalAccountId String?
+  user              User                          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  integration       ConnectCoreIntegration        @relation(fields: [integrationId], references: [id], onDelete: Cascade)
+  events            ConnectCoreConnectionEvent[]
+  healthChecks      ConnectCoreConnectionHealth[]
+  oauthTokens       ConnectCoreOAuthToken[]
+  createdAt         DateTime                      @default(now())
+  updatedAt         DateTime                      @updatedAt
+
+  @@unique([userId, integrationId])
+  @@index([userId, status])
+  @@index([provider])
+}
+
+model ConnectCoreConnectionEvent {
+  id            String                  @id @default(cuid())
+  connectionId  String
+  userId        String
+  integrationId String
+  type          ConnectCoreEventType
+  provider      ConnectCoreProvider
+  metadata      Json
+  occurredAt    DateTime                @default(now())
+  connection    ConnectCoreConnection   @relation(fields: [connectionId], references: [id], onDelete: Cascade)
+
+  @@index([connectionId, occurredAt])
+  @@index([userId, occurredAt])
+}
+
+model ConnectCoreConnectionHealth {
+  id           String                  @id @default(cuid())
+  connectionId String
+  health       ConnectCoreHealthStatus
+  message      String
+  checkedAt    DateTime                @default(now())
+  connection   ConnectCoreConnection   @relation(fields: [connectionId], references: [id], onDelete: Cascade)
+
+  @@index([connectionId, checkedAt])
+}
+
+model ConnectCoreOAuthToken {
+  id           String                @id @default(cuid())
+  connectionId String
+  provider     ConnectCoreProvider
+  tokenRef     String
+  scopes       String[]
+  expiresAt    DateTime?
+  connection   ConnectCoreConnection @relation(fields: [connectionId], references: [id], onDelete: Cascade)
+  createdAt    DateTime              @default(now())
+  updatedAt    DateTime              @updatedAt
+
+  @@index([connectionId])
+  @@index([provider])
+}

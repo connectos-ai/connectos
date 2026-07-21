@@ -1,0 +1,31 @@
+{
+  "name": "@connect-any-inbox/shared",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@connect-any-inbox/connector-registry": "workspace:*"
+  },
+  "license": "MIT",
+  "author": "ConnectOS contributors",
+  "description": "Shared ConnectOS types and utilities.",
+  "keywords": [
+    "connectos",
+    "ai",
+    "ai-agents",
+    "integrations",
+    "types",
+    "utilities"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/connectos-ai/connectos.git"
+  },
+  "homepage": "https://github.com/connectos-ai/connectos#readme",
+  "bugs": {
+    "url": "https://github.com/connectos-ai/connectos/issues"
+  }
+}

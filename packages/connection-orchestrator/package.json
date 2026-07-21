@@ -1,0 +1,32 @@
+{
+  "name": "@connect-any-inbox/connection-orchestrator",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@connect-any-inbox/audit-log": "workspace:*",
+    "@connect-any-inbox/connector-registry": "workspace:*"
+  },
+  "license": "MIT",
+  "author": "ConnectOS contributors",
+  "description": "ConnectOS connection orchestration utilities for provider selection and fallback behavior.",
+  "keywords": [
+    "connectos",
+    "ai",
+    "ai-agents",
+    "integrations",
+    "providers",
+    "orchestration"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/connectos-ai/connectos.git"
+  },
+  "homepage": "https://github.com/connectos-ai/connectos#readme",
+  "bugs": {
+    "url": "https://github.com/connectos-ai/connectos/issues"
+  }
+}

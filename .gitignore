@@ -1,0 +1,70 @@
+# Dependencies
+node_modules/
+
+# Build output
+.next/
+out/
+dist/
+build/
+
+# Test and coverage output
+coverage/
+test-results/
+playwright-report/
+
+# Local environment secrets
+.env
+.env.*
+.envrc
+.direnv/
+!.env.example
+!.env.*.example
+!**/.env.example
+!**/.env.*.example
+
+# Local private keys and certificate bundles
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Local databases and generated data
+*.db
+*.sqlite
+*.sqlite3
+/generated/
+
+# Logs and diagnostics
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Local runtime output
+*.pid
+*.pid.lock
+
+# Tool caches
+*.tsbuildinfo
+.eslintcache
+.cache/
+.turbo/
+.vite/
+.vitest/
+.pnpm-store/
+
+# Local scratch space
+tmp/
+temp/
+
+# Deployment metadata
+.vercel/
+
+# Editor workspace state
+.idea/
+.vscode/
+
+# OS files
+.DS_Store

@@ -1,0 +1,45 @@
+{
+  "name": "@connect-any-inbox/web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "connect-core:seed": "jiti scripts/seed-connect-core.ts"
+  },
+  "dependencies": {
+    "@connect-any-inbox/gmail-connector": "workspace:*",
+    "@connect-any-inbox/connect-core": "workspace:*",
+    "@connect-any-inbox/inbox-core": "workspace:*",
+    "@connect-any-inbox/slack-sync": "workspace:*",
+    "@connect-any-inbox/shared": "workspace:*",
+    "@connect-any-inbox/vault": "workspace:*",
+    "@prisma/client": "^6.19.3",
+    "lucide-react": "^1.20.0",
+    "next": "^15.3.4",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "prisma": "^6.19.3"
+  },
+  "license": "MIT",
+  "author": "ConnectOS contributors",
+  "description": "ConnectOS web demo and API surface for connection flows.",
+  "keywords": [
+    "connectos",
+    "ai",
+    "ai-agents",
+    "integrations",
+    "oauth",
+    "automation"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/connectos-ai/connectos.git"
+  },
+  "homepage": "https://github.com/connectos-ai/connectos#readme",
+  "bugs": {
+    "url": "https://github.com/connectos-ai/connectos/issues"
+  }
+}
